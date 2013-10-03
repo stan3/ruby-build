@@ -732,6 +732,7 @@ use_homebrew_readline() {
 }
 
 has_broken_mac_openssl() {
+  return 0
   [ "$(uname -s)" = "Darwin" ] &&
   [[ "$(openssl version 2>/dev/null || true)" = "OpenSSL 0.9.8"?* ]] &&
   [[ "$RUBY_CONFIGURE_OPTS" != *--with-openssl-dir=* ]] &&
@@ -772,8 +773,8 @@ build_package_mac_openssl() {
 
   # Extract root certs from the system keychain in .pem format and rehash.
   local pem_file="$OPENSSLDIR/cert.pem"
-  security find-certificate -a -p /Library/Keychains/System.keychain > "$pem_file"
-  security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >> "$pem_file"
+#  security find-certificate -a -p /Library/Keychains/System.keychain > "$pem_file"
+#  security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >> "$pem_file"
 }
 
 # Post-install check that the openssl extension was built.
